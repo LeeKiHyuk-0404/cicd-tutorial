@@ -110,7 +110,7 @@ spec:
           - '-c'
         args:
           - >-
-            git config --global user.email "gurdl0404@gmail.com" && git config --global user.name "gurdl0404" && git clone -v -b {{workflow.parameters.gitops-branch}} https://github.com/LeeKiHyuk-0404/cicd-tutorial.git {{workflow.parameters.tag}} && cd {{workflow.parameters.tag}} && git status && ls && yq e -i '.spec.template.spec.containers[0].image = "gurdl0404/cicd-tutorial:{{workflow.parameters.tag}}"' cd/cicd-tutorial.yaml && git pull origin main --allow-unrelated-histories && git add -A && git commit -m 'Release on dev {{workflow.parameters.tag}}' && git push -f origin main https://$GITHUB_PAT@github.com/LeeKiHyuk-0404/cicd-tutorial.git
+            git config --global user.email "gurdl0404@naver.com" && git config --global user.name "LeeKiHyuk-0404" && git clone -v -b {{workflow.parameters.gitops-branch}} https://github.com/LeeKiHyuk-0404/cicd-tutorial.git {{workflow.parameters.tag}} && cd {{workflow.parameters.tag}} && git status && ls && yq e -i '.spec.template.spec.containers[0].image = "gurdl0404/cicd-tutorial:{{workflow.parameters.tag}}"' cd/cicd-tutorial.yaml && git pull origin main --allow-unrelated-histories && git add -A && git commit -m 'Release on dev {{workflow.parameters.tag}}' && git push -f origin main https://github.com/LeeKiHyuk-0404/cicd-tutorial.git
         workingDir: /work/gitops/{{workflow.parameters.tag}}
         env:
           - name: GITHUB_PAT
