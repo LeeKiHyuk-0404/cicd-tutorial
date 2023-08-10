@@ -15,7 +15,7 @@ spec:
       - name: gitops-branch
         value: deploy
       - name: tag
-        value: 12345
+        value: 1234567
       - name: application-name
         value: cicd-tutorial
   volumes:
@@ -72,7 +72,7 @@ spec:
           - sh
           - '-c'
         args:
-          - git clone -b {{workflow.parameters.branch}} https://github.com/protess/cicd-tutorial.git {{workflow.parameters.tag}} && cd {{workflow.parameters.tag}} && git status && ls
+          - git clone -b {{workflow.parameters.branch}} https://github.com/LeeKiHyuk-0404/cicd-tutorial.git {{workflow.parameters.tag}} && cd {{workflow.parameters.tag}} && git status && ls
         workingDir: /work/src
         volumeMounts:
           - name: work-dir
@@ -86,7 +86,7 @@ spec:
           - '--dockerfile=/work/src/{{workflow.parameters.tag}}/slides/Dockerfile'
           - '--context=dir:///work/src/{{workflow.parameters.tag}}/slides'
           - >-
-            --destination=protess/cicd-tutorial:{{workflow.parameters.tag}}
+            --destination=gurdl0404/cicd-tutorial:{{workflow.parameters.tag}}
         workingDir: /work/src/{{workflow.parameters.tag}}
         volumeMounts:
           - name: kaniko-secret
@@ -96,7 +96,7 @@ spec:
       volumes:
         - name: kaniko-secret
           secret:
-            secretName: registry-credential
+            secretName: registry-credental
             items:
               - key: .dockerconfigjson
                 path: config.json
@@ -110,7 +110,7 @@ spec:
           - '-c'
         args:
           - >-
-            git config --global user.email "protess@gmail.com" && git config --global user.name "protess" && git clone -v -b {{workflow.parameters.gitops-branch}} https://github.com/protess/cicd-tutorial.git {{workflow.parameters.tag}} && cd {{workflow.parameters.tag}} && git status && ls && yq e -i '.spec.template.spec.containers[0].image = "protess/cicd-tutorial:{{workflow.parameters.tag}}"' cd/cicd-tutorial.yaml && git add -A && git commit -m 'Release on dev {{workflow.parameters.tag}}' && git push -f https://$GITHUB_PAT@github.com/protess/cicd-tutorial.git
+            git config --global user.email "gurdl0404@gmail.com" && git config --global user.name "gurdl0404" && git clone -v -b {{workflow.parameters.gitops-branch}} https://github.com/LeeKiHyuk-0404/cicd-tutorial.git {{workflow.parameters.tag}} && cd {{workflow.parameters.tag}} && git status && ls && yq e -i '.spec.template.spec.containers[0].image = "gurdl0404/cicd-tutorial:{{workflow.parameters.tag}}"' cd/cicd-tutorial.yaml && git add -A && git commit -m 'Release on dev {{workflow.parameters.tag}}' && git push -f origin main https://$GITHUB_PAT@github.com/LeeKiHyuk-0404/cicd-tutorial.git
         workingDir: /work/gitops/{{workflow.parameters.tag}}
         env:
           - name: GITHUB_PAT

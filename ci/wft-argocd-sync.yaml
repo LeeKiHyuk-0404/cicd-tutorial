@@ -25,7 +25,7 @@ spec:
       - name: argocd-server-address
         value: dev-argocd.huray.io
       - name: argocd-credentials-secret
-        value: argocd-appsync
+        value: github-pat
     script:
       image: argoproj/argocd:{{inputs.parameters.argocd-version}}
       command: [bash]
