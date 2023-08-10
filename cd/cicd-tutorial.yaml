@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: cicd-tutorial
-          image: protess/cicd-tutorial:12345
+          image: gurdl0404/cicd-tutorial:1234567
           ports:
             - containerPort: 80
 ---
